@@ -93,7 +93,12 @@ def run_menu() -> None:
         if choice == "1":
             student_id = input("Enter student ID: ").strip()
             name = input("Enter name: ").strip()
-            age = int(input("Enter age: ").strip())
+            age_input = input("Enter age: ").strip()
+            try:
+                age = int(age_input)
+            except ValueError:
+                print("Invalid age. Please enter a number.")
+                continue
             course = input("Enter course: ").strip()
             added = system.add_student(Student(student_id=student_id, name=name, age=age, course=course))
             print("Student added." if added else "Student ID already exists.")
@@ -101,7 +106,14 @@ def run_menu() -> None:
             student_id = input("Enter student ID to update: ").strip()
             name = input("Enter new name (leave blank to keep): ").strip() or None
             age_input = input("Enter new age (leave blank to keep): ").strip()
-            age = int(age_input) if age_input else None
+            if age_input:
+                try:
+                    age = int(age_input)
+                except ValueError:
+                    print("Invalid age. Please enter a number.")
+                    continue
+            else:
+                age = None
             course = input("Enter new course (leave blank to keep): ").strip() or None
             updated = system.update_student(student_id, name=name, age=age, course=course)
             print("Student updated." if updated else "Student not found.")
