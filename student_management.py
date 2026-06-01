@@ -21,7 +21,10 @@ class StudentManagementSystem:
             return []
 
         with self.file_path.open("r", encoding="utf-8") as file:
-            data = json.load(file)
+            try:
+                data = json.load(file)
+            except json.JSONDecodeError:
+                return []
 
         return [Student(**student) for student in data]
 

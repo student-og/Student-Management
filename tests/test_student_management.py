@@ -45,6 +45,10 @@ class StudentManagementSystemTests(unittest.TestCase):
         added = self.system.add_student(Student(student_id="4", name="Daniel", age=24, course="Chemistry"))
         self.assertFalse(added)
 
+    def test_invalid_json_file_is_handled(self) -> None:
+        self.file_path.write_text("{", encoding="utf-8")
+        self.assertIsNone(self.system.search_student("1"))
+
 
 if __name__ == "__main__":
     unittest.main()
